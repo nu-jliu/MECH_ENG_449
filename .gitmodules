@@ -1,3 +1,6 @@
 [submodule "ModernRobotics"]
 	path = ModernRobotics
 	url = git@github.com:NxRLab/ModernRobotics.git
+[submodule "ros_ws/src/crazy_turtle"]
+	path = ros_ws/src/crazy_turtle
+	url = https://github.com/m-elwin/crazy_turtle.git
