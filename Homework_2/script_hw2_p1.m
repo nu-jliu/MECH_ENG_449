@@ -134,8 +134,8 @@ grid minor
 
 figure
 hold on
-plot(ea_short, LineWidth=1)
-plot(ea_long, LineWidth=1)
+plot(ea_short, LineWidth=2)
+plot(ea_long, LineWidth=2)
 hold off
 
 title('Linear Error $\epsilon_v$', Interpreter='latex')
@@ -146,8 +146,8 @@ grid minor
 
 figure
 hold on
-plot(el_short, LineWidth=1)
-plot(el_long, LineWidth=1)
+plot(el_short, LineWidth=2)
+plot(el_long, LineWidth=2)
 hold off
 
 title('Angular Error $\epsilon_{\omega}$', Interpreter='latex')
