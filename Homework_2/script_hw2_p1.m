@@ -1,4 +1,4 @@
-% MECH_ENG 449 Modern Robotics
+% MECH_ENG 449 Robotics Manipulation
 % Allen Liu
 % Homework 2
 
@@ -6,7 +6,7 @@ close all
 clear variables
 clc
 
-%% Question 1
+%% Configuration constants
 W1 = .109;  % m
 W2 = .082;  % m
 L1 = .425;  % m
@@ -50,7 +50,7 @@ start_z(1) = T_init(3, 4);
 
 display(theta0_vec)
 
-[theta_vec, succ, ~, ea_short, el_short] = IKinBodyIterates(M, B_mat, Tsd, theta0_vec, 1000, 0.001, 0.0001, 'short_iterates');
+[theta_vec, succ, tmat_short, ea_short, el_short] = IKinBodyIterates(B_mat, M, Tsd, theta0_vec, 1000, 0.001, 0.0001, 'short_iterates');
 
 if succ
     display(theta_vec)
@@ -67,13 +67,13 @@ start_x(2) = T_init(1, 4);
 start_y(2) = T_init(2, 4);
 start_z(2) = T_init(3, 4);
 
-[theta_vec, succ, ~, ea_long, el_long] = IKinBodyIterates(M, B_mat, Tsd, theta0_vec, 1000, 0.001, 0.0001, 'long_iterates');
+[theta_vec, succ, tmat_long, ea_long, el_long] = IKinBodyIterates(B_mat, M, Tsd, theta0_vec, 1000, 0.001, 0.0001, 'long_iterates');
 
 if succ
     display(theta_vec)
 end
 
-%% Plotting
+%% Prepare for plotting
 
 short_iter = readmatrix('short_iterates.csv');
 long_iter  = readmatrix('long_iterates.csv');
@@ -115,11 +115,12 @@ end_x = Tsd(1, 4);
 end_y = Tsd(2, 4);
 end_z = Tsd(3, 4);
 
+%% 3d-plot of e-e positions
 figure
 
 plot3(x1, y1, z1,'b-', LineWidth=1.5)
 hold on
-plot3(x2, y2, z2, 'r-', LineWidth=1.5)
+plot3(x2, y2, z2, 'g-', LineWidth=1.5)
 
 plot3(start_x, start_y, start_z, 'ro', MarkerSize=10, LineWidth=3)
 plot3(end_x, end_y, end_z, 'kx', MarkerSize=10, LineWidth=3)
@@ -132,25 +133,27 @@ title('\textbf{Trajectory of the End-Effector position}', Interpreter='latex')
 legend('Long Iteration', 'Short Iteration', 'Start', 'End')
 grid minor
 
+%% Angular error
 figure
 hold on
 plot(ea_short, LineWidth=2)
 plot(ea_long, LineWidth=2)
 hold off
 
-title('Linear Error $\epsilon_v$', Interpreter='latex')
+title('\textbf{Angular Error} $\epsilon_{\omega}$', Interpreter='latex')
 xlabel('Number of iterations', Interpreter='latex')
 ylabel('Error $\epsilon$', Interpreter='latex')
 legend('Short Iteration', 'Long Iteration', Interpreter='latex')
 grid minor
 
+%% Linear error
 figure
 hold on
 plot(el_short, LineWidth=2)
 plot(el_long, LineWidth=2)
 hold off
 
-title('Angular Error $\epsilon_{\omega}$', Interpreter='latex')
+title('\textbf{Linear Error} $\epsilon_v$', Interpreter='latex')
 xlabel('Number of iterations', Interpreter='latex')
 ylabel('Error $\epsilon$', Interpreter='latex')
 legend('Short Iteration', 'Long Iteration', Interpreter='latex')
