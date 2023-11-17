@@ -58,37 +58,37 @@ dt = 1e-2;
 
 %% Part 1. Free fall
 fprintf('---------- fall ----------\n')
-[theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, dt, 0, 0, [0 0 0]', 0);
-writematrix(theta_mat, 'free_fall_a.csv')
+[theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, 1e-4, 0, 0, [0 0 0]', 0);
+writematrix(theta_mat, 'part1a.csv')
 
 fprintf('---------- fall dt2 ----------\n')
-[theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, 1e-3, 0, 0, [0 0 0]', 0);
-writematrix(theta_mat, 'free_fall_b.csv')
+[theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, 1e-2, 0, 0, [0 0 0]', 0);
+writematrix(theta_mat, 'part1b.csv')
 %% Part 2. Damping
 fprintf('---------- daming ----------\n')
-zeta = 3;
+zeta = 1;
 
 [theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, dt, zeta, 0, [0 0 0]', 0);
-writematrix(theta_mat, 'damping_a.csv')
+writematrix(theta_mat, 'part2a.csv')
 
-fprintf('---------- daming 2 ----------\n')
+fprintf('---------- daming negative ----------\n')
 zeta = -5e-3;
 
 [theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, 0.05, zeta, 0, [0 0 0]', 0);
-writematrix(theta_mat, 'damping_b.csv')
+writematrix(theta_mat, 'part2b.csv')
 
 %% Part 3. Spring
 fprintf('---------- spring ----------\n')
 t = 10;
 K = 100;
-zeta = 1;
+zeta = 0;
 g_vec = [0 0 0]';
 restlength = 0;
 
 [theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, dt, zeta, K, [1 1 1]', restlength);
-writematrix(theta_mat, 'spring_b.csv')
+writematrix(theta_mat, 'part3a.csv')
 
-zeta = 0;
+zeta = 1;
 fprintf('---------- spring no damping ----------\n')
 [theta_mat, ~] = Puppet(theta_vec, dtheta_vec, g_vec, Mlist, Slist, Glist, t, dt, zeta, K, [1 1 1]', restlength);
-writematrix(theta_mat, 'spring_a.csv')
+writematrix(theta_mat, 'part3b.csv')
