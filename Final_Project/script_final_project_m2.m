@@ -32,7 +32,7 @@ M0e = [
 ];
 
 q0_vec = [0; 0; 0];
-Tsb_init = TF_robot(q0_vec);
+Tsb_init = TF_chais(q0_vec);
 Tse_init = Tsb_init*Tb0*M0e;
 
 Tsc_init = [
@@ -70,7 +70,7 @@ writematrix(config_mat, 'm2.csv')
 fprintf('csv file generated\n')
 
 %% Function used for calculating body configuration
-function Tsb = TF_robot(q_vec)
+function Tsb = TF_chais(q_vec)
     phi = q_vec(1);
     x   = q_vec(2);
     y   = q_vec(3);

@@ -55,10 +55,10 @@ Ki = 0*eye(6);
 
 dt = 0.01;
 
-FeedbackControl(X, Xd, Xd_next, Kp, Ki, dt);
+V_vec = FeedbackControl(X, Xd, Xd_next, Kp, Ki, dt);
 Jb = JacobianBody(Blist, thetalist);
 
-H_mat_0 = HMatrix(0);
+H_mat_0 = KUKAHMatrix(0);
 F_mat   = pinv(H_mat_0);
 
 m   = size(F_mat, 2);
@@ -76,3 +76,5 @@ Jbase = AdTeb*F6_mat;
 
 Je = [Jbase Jb];
 display(Je)
+speed_vec = pinv(Je, 1e-4)*V_vec;
+display(speed_vec)

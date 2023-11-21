@@ -5,10 +5,23 @@ function [config_mat] = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_g
 %        Tsc_final: Final configuration of the cube in the space frame.
 %        Tce_grap: The configuratino of the cube in end-effector frame when
 %                  it is being graped by the gripper.
-%        % Tce_standoff: The configuration of the cube in end-effetor frame
+%        Tce_standoff: The configuration of the cube in end-effetor frame
 %                        when the end-effector is in standoff position.
 % Output: config_mat: The matrix representing the configuration at each
 %                     timestep.
+% Example:
+% Tse_init = [1,0,0,0.1992;0,1,0,0;0,0,1,0.7535;0;0;0;1];
+% Tsc_init = [1,0,0,1;0,1,0,0;0,0,1,0.025;0;0;0;1];
+% Tsc_final = [0,1,0,1;-1,0,0,-1;0,0,1,0.025;0;0;0;1];
+% Tce_grasp = [-0.7071,0,0.7071,0;0,1,0,0;-0.7071,0,-0.7071,0,0,0,0,1];
+% Tce_standoff = [-0.7071,0,0.7071,0;0,1,0,0;-0.7071,0.2,-0.7071,0,0,0,0,1];
+% k = 10;
+% config_mat = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_grasp, Tce_standoff, k);
+%
+% The config_mat should have all configurations in all time step in format
+% config_mat (i, :) = [r11 r12 r13 r21 r22 r23 r31 r32 r33 px py pz gripper_state]
+
+
 
 
 

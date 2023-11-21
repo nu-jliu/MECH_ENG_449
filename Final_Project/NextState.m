@@ -32,7 +32,7 @@ function [config_new_vec] = NextState(config_vec, speed_vec, dt, max_speed)
     alpha_new_vec  = alpha_vec  + dalpha_vec;
 
     phi       = q_vec(1, 1);
-    H_mat     = HMatrix(phi);
+    H_mat     = KUKAHMatrix(phi);
     qdot_vec  = pinv(H_mat)*u_vec;
     q_new_vec = q_vec + qdot_vec*dt;
 
