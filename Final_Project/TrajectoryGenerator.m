@@ -1,15 +1,15 @@
-function [config_mat] = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_grasp, Tce_standoff, k)
-% Takes: Tse_init: Initial configuration of the end-effector in the space
-%                  frame
-%        Tsc_init: Initial configuration of the cube in the space frame.
-%        Tsc_final: Final configuration of the cube in the space frame.
-%        Tce_grap: The configuratino of the cube in end-effector frame when
-%                  it is being graped by the gripper.
-%        Tce_standoff: The configuration of the cube in end-effetor frame
-%                        when the end-effector is in standoff position.
-% Output: config_mat: The matrix representing the configuration at each
+function [config_mat] = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_grasp, Tce_standoff, dt, k)
+% Takes Tse_init: Initial configuration of the end-effector in the space
+%                 frame
+%       Tsc_init: Initial configuration of the cube in the space frame.
+%       Tsc_final: Final configuration of the cube in the space frame.
+%       Tce_grap: The configuratino of the cube in end-effector frame when
+%                 it is being graped by the gripper.
+%       Tce_standoff: The configuration of the cube in end-effetor frame
+%                     when the end-effector is in standoff position.
+% Returns config_mat: The matrix representing the configuration at each
 %                     timestep.
-% Example:
+% Example Inputs:
 % Tse_init = [1,0,0,0.1992;0,1,0,0;0,0,1,0.7535;0;0;0;1];
 % Tsc_init = [1,0,0,1;0,1,0,0;0,0,1,0.025;0;0;0;1];
 % Tsc_final = [0,1,0,1;-1,0,0,-1;0,0,1,0.025;0;0;0;1];
@@ -18,6 +18,7 @@ function [config_mat] = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_g
 % k = 10;
 % config_mat = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_grasp, Tce_standoff, k);
 %
+% Output:
 % The config_mat should have all configurations in all time step in format
 % config_mat (i, :) = [r11 r12 r13 r21 r22 r23 r31 r32 r33 px py pz gripper_state]
 
@@ -34,12 +35,12 @@ function [config_mat] = TrajectoryGenerator(Tse_init, Tsc_init, Tsc_final, Tce_g
     T6 = 5;
 
     %%%%%%%% Get the number of points for each trajectory %%%%%%%%%
-    N1 = ceil(T1*k/0.01);
-    N2 = ceil(T2*k/0.01);
-    N3 = ceil(T3*k/0.01);
-    N4 = ceil(T4*k/0.01);
-    N5 = ceil(T5*k/0.01);
-    N6 = ceil(T6*k/0.01);
+    N1 = ceil(T1*k/dt);
+    N2 = ceil(T2*k/dt);
+    N3 = ceil(T3*k/dt);
+    N4 = ceil(T4*k/dt);
+    N5 = ceil(T5*k/dt);
+    N6 = ceil(T6*k/dt);
 
     %%%%%%%%%%%%%%% Calculate the first trajectory %%%%%%%%%%%%%%%%%
     config_mat_1 = zeros(N1, 13);

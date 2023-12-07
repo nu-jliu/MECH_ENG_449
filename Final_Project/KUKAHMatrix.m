@@ -1,4 +1,20 @@
 function H_mat = KUKAHMatrix(phi)
+% Takes phi: The angle of the chasis configuration
+% Returns H_mat: The H matrix of the KUKA youbot at 
+%                configuration phi
+% 
+% Example Inputs:
+% phi = 0;
+% H_mat = KUKAHMatrix(phi)
+%
+% Example Output:
+% H_mat = 
+%    
+%    -8.1053   21.0526  -21.0526
+%     8.1053   21.0526   21.0526
+%     8.1053   21.0526  -21.0526
+%    -8.1053   21.0526   21.0526
+
     l = 0.47/2;
     w = 0.3/2;
 

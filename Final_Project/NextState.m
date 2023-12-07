@@ -1,4 +1,35 @@
 function [config_new_vec] = NextState(config_vec, speed_vec, dt, max_speed)
+% Takes config_vec: (phi, x, y, theta1-5, alpha1-4), the configuration
+%                   vector representing current configuration of the youbot
+%       speed_vec: (u1-4, thetadot1-5), the speed vector that
+%                  representing the speed of each joint
+%       dt: The timestep of the simulation
+%       max_speed: Maximum allowance of the speed
+% Returns config_new_vec: Configuration vector of the next timestep.
+% 
+% Example Inputs:
+% config_vec = [0 0 0 0 0 0 0 0 0 0 0 0]';
+% speed_vec = [10 10 10 10 0 0 0 0 0]';
+% dt = 0.01;
+% max_speed = inf;
+% config_new_vec = NextState(config_vec, speed_vec, dt, max_speed)
+% 
+% Example Output:
+% config_new_vec =  
+%          0
+%     0.0047
+%    -0.0000
+%          0
+%          0
+%          0
+%          0
+%          0
+%     0.1000
+%     0.1000
+%     0.1000
+%     0.1000
+
+    %%%%%%%%%% Check dimension %%%%%%%%%% 
     [r_config, c_config] = size(config_vec);
     [r_speed, c_speed] = size(speed_vec);
 
@@ -10,6 +41,7 @@ function [config_new_vec] = NextState(config_vec, speed_vec, dt, max_speed)
         error('Invalid speed input');
     end
 
+    %%%%%%%%%% Retrive Configurations %%%%%%%%%%
     q_vec     = config_vec(1:3, :);
     theta_vec = config_vec(4:8, :);
     alpha_vec  = config_vec(9:12, :);
@@ -25,6 +57,7 @@ function [config_new_vec] = NextState(config_vec, speed_vec, dt, max_speed)
     u_vec        = speed_vec(1:4, :);
     thetadot_vec = speed_vec(5:9, :);
 
+    %%%%%%%%%% Calculate next state config %%%%%%%%%%
     dtheta_vec = thetadot_vec*dt;
     dalpha_vec = u_vec*dt;
 
